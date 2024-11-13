@@ -1,5 +1,11 @@
+import { Layout } from "@/layouts/Layout"
+import { Home } from "@/pages/Home"
+
+
 export default function App() {
   return (
-    <h1>Hello World</h1>
+    <Layout>
+      <Home />
+    </Layout>
   )
 }
