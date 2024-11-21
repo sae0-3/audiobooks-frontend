@@ -1,7 +1,11 @@
-export const Layout = ({ children }) => {
+import { Outlet } from "react-router-dom"
+
+const Layout = () => {
   return (
-    <div className="container min-h-screen bg-base">
-      {children}
-    </div>
+    <main className="container min-h-screen bg-base">
+      <Outlet />
+    </main>
   )
 }
+
+export default Layout
