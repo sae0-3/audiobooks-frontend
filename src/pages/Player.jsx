@@ -1,54 +1,40 @@
-import { useState } from "react"
+import { AudioCardInfo } from "@/components/AudioCardInfo"
 import { Back } from "@/components/Back"
-
+import { AudioCardControls } from "@/components/AudioCardControls"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Player = () => {
-  const [rangeValue, setRangeValue] = useState(0)
+  const [viewPlayer, setViewPlayer] = useState(false)
+  const navigate = useNavigate()
+
+  const data = {
+    cover: "https://via.placeholder.com/300x450",
+    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis autem eius, corrupti ipsam itaque quasi possimus rem dolore debitis assumenda laboriosam labore minima illo? Assumenda, mollitia vero! Doloribus nostrum fuga nam vel commodi, expedita veniam asperiores voluptate ducimus, quas aut nisi sapiente animi quos? Perspiciatis nobis, eligendi accusantium ipsaLorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis autem eius, corrupti ipsam itaque quasi possimus rem dolore debitis assumenda laboriosam labore minima illo? Assumenda, mollitia vero! Doloribus nostrum fuga nam vel commodi, expedita veniam asperiores voluptate ducimus, quas aut nisi sapiente animi quos? Perspiciatis nobis, eligendi accusantium ipsa",
+    duration: 3.7,
+  }
 
   return (
     <>
-      <Back />
+      <Back
+        action={viewPlayer
+          ? () => setViewPlayer(false)
+          : () => navigate("/home")
+        }
+      />
 
-      <section className="flex flex-col w-full h-screen justify-center items-center pb-14 gap-8">
-        <section className="w-full flex justify-center">
-          <img
-            src="/portrait.jpg"
-            alt="portada"
-            className="w-6/12 max-w-56"
-          />
-        </section>
-
-        <div className="w-full flex flex-col gap-2">
-          <p className="text-center space-x-2 text-lg">
-            <i className="bi bi-clock"></i>
-            <span>25 minutos</span>
-          </p>
-
-          <section class="flex justify-center w-full">
-            <input
-              type="range"
-              class="h-1 w-9/12 max-w-96 rounded-full my-2 hover:bg-gray-400 active:bg-gray-500 appearance-none"
-              value={rangeValue}
-              min="0"
-              max="100"
-              step="1"
-              onChange={(e) => setRangeValue(e.target.value)}
-            />
-          </section>
-
-          <section className="flex justify-center gap-5 text-4xl">
-            <button>
-              <i className="bi bi-rewind" />
-            </button>
-            <button>
-              <i className="bi bi-play" />
-            </button>
-            <button>
-              <i className="bi bi-fast-forward" />
-            </button>
-          </section>
-        </div>
-      </section>
+      {viewPlayer
+        ? <AudioCardControls
+          cover={data.cover}
+          duration={data.duration}
+        />
+        : <AudioCardInfo
+          cover={data.cover}
+          duration={data.duration}
+          description={data.description}
+          viewPlayer={() => setViewPlayer(true)}
+        />
+      }
     </>
   )
 }

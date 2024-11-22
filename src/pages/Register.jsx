@@ -12,8 +12,8 @@ const Register = () => {
 
   return (
     <>
-      <div className="fixed w-96 h-96 bg-secondary rounded-full -bottom-48 -right-36 z-0" />
-      <Back path="/" />
+      <div className="fixed w-96 h-96 bg-color-secondary rounded-full -bottom-48 -right-36 z-0" />
+      <Back action={() => navigate("/")} />
 
       <section className="flex flex-col items-center gap-10">
         <h2 className="mt-16 font-bold text-4xl text-white">Registrarse</h2>

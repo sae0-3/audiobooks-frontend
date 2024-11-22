@@ -12,7 +12,7 @@ const Login = () => {
 
   return (
     <>
-      <Back path="/" />
+      <Back action={() => navigate("/")} />
 
       <section className="flex flex-col items-center gap-10">
         <h2 className="mt-16 font-bold text-4xl text-white">Iniciar sesión</h2>
