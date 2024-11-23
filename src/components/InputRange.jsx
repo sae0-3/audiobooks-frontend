@@ -1,14 +1,19 @@
-export const InputRange = ({ value, min = 0, max, action }) => {
+export const InputRange = ({ value, min = 0, max, action, disabled, onMouseDown, onMouseUp, onTouchStart, onTouchEnd }) => {
   return (
     <>
       <input
         type="range"
-        className="h-1 w-full max-w-96 rounded-full appearance-none bg-gray-200 range-slider hover:cursor-pointer"
+        className="h-1 w-full max-w-96 rounded-full appearance-none bg-gray-200 range-slider hover:cursor-pointer disabled:opacity-50 disabled:cursor-auto"
         value={value}
         min={min}
         max={max}
         step="1"
+        disabled={disabled}
         onChange={action}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         style={{
           background: `linear-gradient(to right, #000 0%, #000 ${(value / max) * 100}%, #e5e7eb ${(value / max) * 100}%, #e5e7eb 100%)`,
         }}
