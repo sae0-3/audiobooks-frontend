@@ -1,18 +1,31 @@
+import { Error } from "@/components/Error"
+import { Loading } from "@/components/Loading"
+import { useGetLibrary } from "@/hooks/useAudio"
 import { Link } from "react-router-dom"
 
 const Library = () => {
-  const content = Array.from({ length: 3 }, (_, index) => ({
-    id: index + 1,
-    cover: "https://via.placeholder.com/300x450",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis autem eius, corrupti ipsam itaque quasi possimus rem dolore debitis assumenda laboriosam labore minima illo? Assumenda, mollitia vero! Doloribus nostrum fuga",
-  }))
+  const { data, isLoading, error } = useGetLibrary()
+
+  if (isLoading) return <Loading />
+
+  if (error) {
+    return (
+      <Error>
+        <p className="text-center pt-20 font-bold text-lg">Surgió un problema</p>
+      </Error>
+    )
+  }
 
   return (
     <div className="pt-8 pb-24">
       <h2 className="text-center text-white font-bold text-3xl">Continuar historia</h2>
 
       <section className="flex flex-col w-11/12 max-w-lg mx-auto gap-6 items-center justify-center mt-6">
-        {content.map(({ id, cover, description }) => (
+        {data.content.length === 0 && (
+          <span className="text-lg text-white">No hay elementos</span>
+        )}
+
+        {!!data.content.length && data.content.map(({ id, cover, description }) => (
           <Link
             key={id}
             to={`/player/${id}`}

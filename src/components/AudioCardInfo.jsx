@@ -1,9 +1,19 @@
 import { useState } from "react"
+import { useSaveLibrary, useDeleteLibrary } from "@/hooks/useAudio"
 
-export const AudioCardInfo = ({ cover, description, duration, viewPlayer }) => {
+export const AudioCardInfo = ({ id, title, author, cover, description, duration, viewPlayer, is_saved }) => {
+  const [saved, setSaved] = useState(is_saved)
   const [isExpanded, setIsExpanded] = useState(false)
+  const { mutate: save,  isPending: pendingSave } = useSaveLibrary(id)
+  const { mutate: remove, isPending: pendingRemove } = useDeleteLibrary(id)
 
-  const addCollection = () => { }
+  const handleCollection = () => {
+    if (pendingRemove || pendingSave) return
+
+    if (saved) remove()
+    else save()
+    setSaved(!saved)
+  }
 
   return (
     <div className="w-11/12 max-w-sm mx-auto pt-16 pb-24 overflow-hidden">
@@ -13,7 +23,11 @@ export const AudioCardInfo = ({ cover, description, duration, viewPlayer }) => {
         className="w-1/2 min-w-48 h-72 object-contain mx-auto rounded-xl"
       />
 
-      <section className="px-4 pt-6 flex flex-col gap-2">
+      <section className="px-4 pt-6 flex flex-col gap-3">
+        <small className="mx-auto text-white font-bold text-lg">
+          {title.substr(0, 1).toUpperCase() + title.substr(1).toLowerCase()}
+        </small>
+
         <p className="text-center text-xl font-medium text-white">
           <i className="bi bi-clock" /> {duration} Minutos
         </p>
@@ -39,9 +53,10 @@ export const AudioCardInfo = ({ cover, description, duration, viewPlayer }) => {
             onClick={viewPlayer}
           ><i className="bi bi-headphones text-lg" /> Reproducir</button>
           <button
-            className="px-4 py-2 bg-gray-200 rounded-lg"
-            onClick={addCollection}
-          ><i className="bi bi-collection text-lg" /> Biblioteca</button>
+            className="px-4 py-2 bg-gray-200 rounded-lg disabled:opacity-70 disabled:cursor-auto"
+            onClick={handleCollection}
+            disabled={pendingRemove || pendingSave}
+          ><i className={`bi bi-${saved ? "dash" : "plus"} text-lg`} /> Biblioteca</button>
         </section>
       </section>
     </div>
