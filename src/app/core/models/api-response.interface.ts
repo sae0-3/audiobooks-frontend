@@ -12,9 +12,10 @@ export interface IContent {
   description: string
   cover: string
   link: string
+  is_saved?: boolean
 }
 
-export interface IContentSaved extends IContent {
+export interface IContentLibrary extends IContent {
   progress?: string
   saved_at?: string
 }
