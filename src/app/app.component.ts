@@ -4,6 +4,10 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
-  templateUrl: 'app.component.html',
+  template: `
+    <main class="w-full min-h-screen bg-primary">
+      <router-outlet />
+    </main>
+  `,
 })
 export class AppComponent { }

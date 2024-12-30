@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-preview',
-  imports: [],
-  template: `
-    <p>
-      preview works!
-    </p>
-  `,
-  styles: ``
+  imports: [RouterLink],
+  templateUrl: 'preview.component.html',
 })
-export class PreviewComponent {
-
-}
+export class PreviewComponent { }

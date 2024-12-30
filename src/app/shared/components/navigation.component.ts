@@ -10,8 +10,16 @@ interface ISection {
 @Component({
   selector: 'app-navigation',
   imports: [RouterLink, NgClass],
-  templateUrl: 'navigation.component.html',
   providers: [Router],
+  template: `
+    <footer class="fixed bottom-0 border-t-4 w-full flex justify-evenly py-3 bg-color-base">
+      @for (section of sections; track $index) {
+      <a [routerLink]="section.route">
+        <i class="text-4xl bi" [ngClass]="[isActive(section)]"></i>
+      </a>
+      }
+    </footer>
+  `,
 })
 export class NavigationComponent {
   public readonly sections: ISection[] = [

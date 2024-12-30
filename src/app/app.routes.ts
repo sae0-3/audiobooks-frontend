@@ -8,7 +8,7 @@ import { PlayerComponent } from './features/player/player.component';
 import { PreviewComponent } from './features/preview/preview.component';
 import { RegisterComponent } from './features/register/register.component';
 import { SearchComponent } from './features/search/search.component';
-import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { MainLayoutComponent } from './layouts/main-layout.component';
 
 export const routes: Routes = [
   { path: '', component: PreviewComponent },
