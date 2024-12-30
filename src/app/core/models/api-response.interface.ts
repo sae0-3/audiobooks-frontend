@@ -39,3 +39,8 @@ export interface IGenre {
   title: string
   description?: string
 }
+
+export interface IApiResponseError {
+  statusCode: number
+  message: string
+}
