@@ -8,17 +8,24 @@ import { IFormDataUser } from '../models/types';
   providedIn: 'root'
 })
 export class AuthService {
-  readonly baseURL = 'https://audiobooks-backend-production.up.railway.app/api/auth';
+  readonly baseURL = 'https://audiobooks-backend-production.up.railway.app/api';
   private http = inject(HttpClient);
 
   login(user: IFormDataUser) {
-    return this.http.post<ILoginResponse>(`${this.baseURL}/login`, user, {
+    return this.http.post<ILoginResponse>(`${this.baseURL}/auth/login`, user, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
+  register(newUser: IFormDataUser) {
+    return this.http.post(`${this.baseURL}/users/register`, newUser, {
       reportProgress: true,
       observe: 'events',
     });
   }
 
   saveToken(token: string) {
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
   }
 }

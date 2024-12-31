@@ -11,21 +11,37 @@
 
 <form
   [formGroup]="registerForm"
-  (ngSubmit)="onSubmit()"
+  (ngSubmit)="register()"
   class="w-full flex flex-col text-black items-center gap-10">
-  <input
-    type="email"
-    placeholder="Correo Electronico"
-    class="w-8/12 max-w-sm rounded-xl px-5 text-lg h-11"
-    formControlName="email"
-  />
-  <input
-    type="password"
-    placeholder="Contraseña"
-    class="w-8/12 max-w-sm rounded-xl px-5 text-lg h-11 z-0"
-    formControlName="password"
-  />
-  <button type="submit" class="fixed bottom-0 right-2 disabled:opacity-20" [disabled]="!registerForm.valid">
+  <section class="w-8/12 max-w-sm flex flex-col items-center gap-1">
+    <input
+      type="email"
+      placeholder="Correo Electronico"
+      class="w-full h-11 rounded-xl px-5 text-lg"
+      formControlName="email"
+    />
+
+    @if (errorResponse()?.statusCode === 409) {
+    <p class="text-red-600 text-xs font-medium">{{ errorResponse()?.message }}</p>
+    }
+  </section>
+  <section class="w-8/12 max-w-sm flex flex-col items-center gap-1 z-0">
+    <input
+      type="password"
+      placeholder="Contraseña"
+      class="w-full h-11 rounded-xl px-5 text-lg"
+      formControlName="password"
+    />
+
+    @if (errorResponse()?.statusCode === 400) {
+    <p class="text-red-600 text-xs font-medium">{{ errorResponse()?.message }}</p>
+    }
+  </section>
+  <button
+    type="submit"
+    class="fixed bottom-0 right-2 disabled:opacity-20"
+    [disabled]="!registerForm.valid || loading()"
+  >
     <i class="bi bi-arrow-right-short font-extrabold text-7xl"></i>
   </button>
 </form>
